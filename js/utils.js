@@ -1,7 +1,9 @@
+// VARIABLES USED IN JAVA SCRIPT
 var includeSpecChar = false;
 var includeNumbers = false;
 var includePrompts = false;
 var includeUpperLetters = false; 
+var includelowercaseLetters = false; 
 var pwd1 = 0;
 var collectionOfLetters = "abcdefghijklmnopqrstuvwxyz";
 var collectionofUpperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -15,11 +17,13 @@ var password = "";
 var n;
 
 
-    
+
+// FUNCTION TO GENERATE PASSWORD    
     function generatePWD() {
         var includeSpecChar = document.getElementById("specChar").checked; 
         var includeNumbers = document.getElementById("includeNumbers").checked;
         var includeUpperLetters = document.getElementById("UpperLetters").checked;
+        var includelowercaseLetters = document.getElementById("LowerLetters").checked;
         
         pwd1 = +document.getElementById("pwdLength").value;
         
@@ -28,24 +32,10 @@ var n;
             alert("Password Values must exceed 8 or be less than 128")
         }
        
-        // check for collection of just lower case letters
-        if ((includeSpecChar === false) && (includeNumbers === false) && (includeUpperLetters === false)) {
+         //check for lower case 
+        if (includelowercaseLetters === true) {
             
-            // collectionOfLetters = "abcdefghijklmnopqrstuvwxyz"; 
-            // CREATE THE PASSWORD 
-            for (var i = 0; i < pwd1; i++) {
-                randomNumber = collectionOfLetters[Math.floor(Math.random() * collectionOfLetters.length)]
-                password += randomNumber
-            }
-            document.getElementById("password").innerHTML = password;
-            password = "";
-
-        }
-
-        //check for lower case and upper case letters
-        if (includeUpperLetters === true) {
             
-            collectionOfLetters = collectionOfLetters +  collectionofUpperLetters;
             // CREATE THE PASSWORD 
             for (var i = 0; i < pwd1; i++) {
                 randomNumber = collectionOfLetters[Math.floor(Math.random() * collectionOfLetters.length)]
@@ -56,6 +46,35 @@ var n;
             collectionOfLetters = "abcdefghijklmnopqrstuvwxyz";
 
         }
+
+        //check for  upper case letters
+        if (includeUpperLetters === true) {
+            
+            // collectionOfLetters = collectionOfLetters +  collectionofUpperLetters;
+            // CREATE THE PASSWORD 
+            for (var i = 0; i < pwd1; i++) {
+                randomNumber = collectionofUpperLetters[Math.floor(Math.random() * collectionofUpperLetters.length)]
+                password += randomNumber
+            }
+            document.getElementById("password").innerHTML = password;
+            password = "";
+            collectionOfLetters = "abcdefghijklmnopqrstuvwxyz";
+
+        }
+        // CHECK FOR UPPER AND LOWER CASE
+        if((includeUpperLetters === true) && (includelowercaseLetters)){
+            collectionOfLetters = collectionOfLetters + collectionofUpperLetters;
+            //CREATE THE PASSWORD
+            for (var i = 0; i < pwd1; i++) {
+                randomNumber = collectionOfLetters[Math.floor(Math.random() * collectionOfLetters.length)]
+                password += randomNumber
+            }
+            document.getElementById("password").innerHTML = password;
+            password = "";
+            collectionOfLetters = "abcdefghijklmnopqrstuvwxyz";
+
+        }
+
 
         // Check for collection of numbers, spec characters and numbers create password if all are present
         if ((includeSpecChar === true) && includeNumbers === true) {
